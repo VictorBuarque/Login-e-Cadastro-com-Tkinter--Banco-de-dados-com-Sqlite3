@@ -1,3 +1,4 @@
+#Elaborado por Victor Gabriel Reis Buarque da Silva
 import sqlite3
 import tkinter
 from tkinter import Button, ttk, messagebox
@@ -11,7 +12,7 @@ def janela1 ():
         def salvar ():
         #Validação
             window.withdraw() 
-            terms = terms_reg_status_var.get()
+            terms = terms_reg_status_var.get() 
             if terms == "Concordo":
             #Dados
                 firstname = name_entry.get()
