@@ -1,4 +1,3 @@
-#Elaborado por Victor Gabriel Reis Buarque da Silva
 import sqlite3
 import tkinter
 from tkinter import Button, ttk, messagebox
@@ -9,75 +8,77 @@ window.resizable(width = 1, height = 1)
 window.configure(bg="DarkOrchid2")
 def janela1 ():
     def janela2():
-        def salvar ():
-        #Validação
-            window.withdraw() 
-            terms = terms_reg_status_var.get() 
+        window.withdraw()
+        def validar ():
+            terms = terms_reg_status_var.get()
             if terms == "Concordo":
-            #Dados
-                firstname = name_entry.get()
-                lastname = last_name_entry.get()
-                title = title_combobox.get()
-                age = age_spinbox.get()
-                nationality = nationality_combobox.get()
-                email = email_entry.get()
-                confirm_email = confirm_email_entry.get()
-                cpf = cpf_entry.get()
-                cellphone = cellphone_entry.get()
-                password = password_entry.get()
-                confirm_password =confirm_password_entry.get()
-                if email != confirm_email :
-                    tkinter.messagebox.showwarning(title="Erro", message="E-mail incorreto!")
-                    return None
-                else:
-                    pass
-                if password == confirm_password :
-                    pass
-                else:
-                    tkinter.messagebox.showwarning(title="Erro", message="Senha incorreta")
-                    return None
-                if firstname and lastname and title and age and nationality and email and confirm_email and cpf and cellphone and password and confirm_password:
-                    cep = cep_entry.get()
-                    adress = adress_entry.get()
-                    adress_number = adress_number_entry.get()
-                    city = city_name_entry.get()
-                    complement = complement_adress_entry.get()
-                    distrit = distrit_name_entry.get()
-                else:
-                    tkinter.messagebox.showwarning(title="Erro", message="Dados incompletos!")
-                print("-"*50)
-                print("Pronome: ", title, ", Primeiro Nome: ", firstname, ", Cpf: ", cpf)
-                print("Nacionalidade: ", nationality, ", Celular: ", cellphone, ", Idade: ", age)
-                print("E-mail: ", email, ", Confirmar E-mail: ", confirm_email,)
-                print("-"*50)
-
-                #Criando a tabela de dados
-                conn = sqlite3.connect('Data.db')
-                table_create_query = '''CREATE TABLE IF NOT EXISTS Dados(
-                    firstname TEXT, lastname TEXT, title TEXT, age INT, 
-                    nationality TEXT, email TEXT,password TEXT, cpf INT,cellphone INT )'''
-                conn.execute(table_create_query)
-                #Adicionando dados, sempre colocar os mesmos numeros de variaveis e de interrogações em values 
-                data_insert_query = '''INSERT INTO Dados(firstname,lastname,title,age,
-                nationality,email,password,cpf,cellphone)VALUES(?,?,?,?,?,?,?,?,?)'''
-                #Colocar apenas as variáveis na tupla!
-                data_insert_tuple = (firstname,lastname,title,age,nationality,email,password,cpf,cellphone)
-                #Este deve sempre deixar entre o conn.execute e o conn.close
-                cursor = conn.cursor()
-                #Cursor irá fazer com que seja executado a adição no banco de dados
-                cursor.execute(data_insert_query,data_insert_tuple)
-                #Commit irá garantir que os dados serão salvos no banco
-                conn.commit()
-                #Encerrará a conexão
-                conn.close()
-                confirmation = messagebox.askyesno(title="Confirmação?", message="Confirma os dados inseridos?")
-                if confirmation == True:
-                    return messagebox.showinfo(title="Parabéns", message="Seus dados foram salvos com sucesso")
-                else:
-                    return messagebox.showinfo(title="Que pena", message="Revise seus dados novamente!")
-                    return None
+                salvar()
             else:
-                tkinter.messagebox.showwarning(title="Erro", message="Você não aceitou os termos!")
+                None
+        def salvar ():
+            #Dados a serem salvos
+            firstname = name_entry.get()
+            lastname = last_name_entry.get()
+            title = title_combobox.get()
+            age = age_spinbox.get()
+            nationality = nationality_combobox.get()
+            email = email_entry.get()
+            confirm_email = confirm_email_entry.get()
+            cpf = cpf_entry.get()
+            cellphone = cellphone_entry.get()
+            password = password_entry.get()
+            confirm_password =confirm_password_entry.get()
+            if email != confirm_email :
+                messagebox.showwarning(title="Erro", message="E-mail incorreto!")
+                return None
+            else:
+                pass
+            if password == confirm_password :
+                pass
+            else:
+                messagebox.showwarning(title="Erro", message="Senha incorreta")
+                return None
+            if firstname and lastname and title and age and nationality and email and confirm_email and cpf and cellphone and password and confirm_password:
+                cep = cep_entry.get()
+                adress = adress_entry.get()
+                adress_number = adress_number_entry.get()
+                city = city_name_entry.get()
+                complement = complement_adress_entry.get()
+                distrit = distrit_name_entry.get()
+            else:
+                messagebox.showwarning(title="Erro", message="Dados incompletos!")
+            print("-"*50)
+            print("Pronome: ", title, ", Primeiro Nome: ", firstname, ", Cpf: ", cpf)
+            print("Nacionalidade: ", nationality, ", Celular: ", cellphone, ", Idade: ", age)
+            print("E-mail: ", email, ", Confirmar E-mail: ", confirm_email,)
+            print("-"*50)
+
+            #Criando a tabela de dados
+            conn = sqlite3.connect('Data.db')
+            table_create_query = '''CREATE TABLE IF NOT EXISTS Dados(
+                firstname TEXT, lastname TEXT, title TEXT, age INT, 
+                nationality TEXT, email TEXT,password TEXT, cpf INT,cellphone INT )'''
+            conn.execute(table_create_query)
+            #Adicionando dados, sempre colocar os mesmos numeros de variaveis e de interrogações em values 
+            data_insert_query = '''INSERT INTO Dados(firstname,lastname,title,age,
+            nationality,email,password,cpf,cellphone)VALUES(?,?,?,?,?,?,?,?,?)'''
+            #Colocar apenas as variáveis na tupla!
+            data_insert_tuple = (firstname,lastname,title,age,nationality,email,password,cpf,cellphone)
+            #Este deve sempre deixar entre o conn.execute e o conn.close
+            cursor = conn.cursor()
+            #Cursor irá fazer com que seja executado a adição no banco de dados
+            cursor.execute(data_insert_query,data_insert_tuple)
+            #Commit irá garantir que os dados serão salvos no banco
+            conn.commit()
+            #Encerrará a conexão
+            conn.close()
+            
+            confirmation = messagebox.askyesno(title="Confirmação?", message="Confirma os dados inseridos?")
+            if confirmation == True:
+                return messagebox.showinfo(title="Parabéns", message="Seus dados foram salvos com sucesso")
+            else:
+                return messagebox.showinfo(title="Que pena!", message="Revise seus dados novamente!")
+                return None
 
         def salvar_pagamento():
             #Pagamento
@@ -103,11 +104,11 @@ def janela1 ():
                 conn.close()
             else:
                 pass
-         
-        
+
         def voltar():
             window.deiconify()
-            window1.withdraw()    
+            window1.withdraw() 
+
         def mostrar_senha ():
             if password_entry.cget ("show") == '*' and confirm_password_entry.cget ("show") == '*':
                 password_entry.config(show='')
@@ -117,7 +118,6 @@ def janela1 ():
                 confirm_password_entry.config(show='*')
         
         #Janela principal
-        
         window1 = tkinter.Tk()
         window1.title("Ficha de Cadastro",)
         window1.geometry('800x680+400+50')
@@ -275,7 +275,7 @@ def janela1 ():
         terms_frame.grid(row=3, column=0, sticky="news",padx=20,pady=10 ) #Sticky é para expandir para todas as coordenadas
         terms_reg_status_var = tkinter.StringVar(value="Nao concordo")
         terms_reg_check = tkinter.Checkbutton(terms_frame,text="Eu aceito os termos e condições de uso presentes no contrato.", 
-        variable=terms_reg_status_var, onvalue="Concordo", offvalue="Nao concordo",command=salvar)
+        variable=terms_reg_status_var, onvalue="Concordo", offvalue="Nao concordo",command=validar)
         terms_reg_check.pack()
         
         #Botões
